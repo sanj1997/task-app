@@ -5,4 +5,5 @@ const TaskSchema=new Schema({
     user:{type:Schema.Types.ObjectId,ref:"user"}
 })
 
-const TaskModel=models.task||model("task",TaskModel)
+const TaskModel=models.task||model("task",TaskSchema)
+module.exports=TaskModel
