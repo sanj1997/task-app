@@ -2,7 +2,7 @@ import axios from "axios";
 // require("dotenv").config()
 // const APP_URL=process.env.REACT_APP_URL
 const instance=axios.create({
-    baseURL:"/api"
+    baseURL:"https://task-1801prxc3-sanj1997.vercel.app/api"
 })
 
 instance.interceptors.request.use(
@@ -29,7 +29,7 @@ instance.interceptors.response.use(
       {
          previousRequest.sent=true
          let rToken = JSON.parse(localStorage.getItem("refreshToken"))
-         const res=await axios("/api/users",{
+         const res=await axios("https://task-1801prxc3-sanj1997.vercel.app/api/users",{
             headers:{
                 "Authorization":rToken
             },
