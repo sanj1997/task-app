@@ -1,8 +1,6 @@
 import axios from "axios";
-// require("dotenv").config()
-// const APP_URL=process.env.REACT_APP_URL
 const instance=axios.create({
-    baseURL:"https://task-1801prxc3-sanj1997.vercel.app/api"
+    baseURL:"/api"
 })
 
 instance.interceptors.request.use(

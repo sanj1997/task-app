@@ -22,7 +22,7 @@ export default function Home({tasks}) {
 }
 export const getServerSideProps=async(ctx)=>{
   const cookies = nookies.get(ctx)
-  const response=await axios.get("https://task-1801prxc3-sanj1997.vercel.app/api/tasks",{
+  const response=await axios.get("https://task-app-269i-mobi7am1h-sanj1997.vercel.app/api/tasks",{
     headers:{
       authorization:cookies.accessToken
     }
