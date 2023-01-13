@@ -13,14 +13,17 @@ const signup = () => {
   const router=useRouter()
   const {handleAuth}=useContext(AppContext)
   const toast=useToast()
-  const ref = useRef(null);
+  const confirmPassword = useRef(null);
+  const username=useRef(null)
+  const email=useRef(null)
+  const password=useRef(null)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCreds({ ...creds, [name]: value });
   };
   const handleSubmit = async(e) => {
     e.preventDefault();
-    if (ref.current.value != creds.password) {
+    if (confirmPassword.current.value != creds.password) {
       toast({
         description:"Passwords does not match",
         status:"error",
@@ -29,6 +32,10 @@ const signup = () => {
       })
       return
     }
+    email.current.value=""
+    username.current.value=""
+    password.current.value=""
+    confirmPassword.current.value=""
     createUserAccount(creds).then((res)=>{
        toast({
         description:"Account created successfully",
@@ -62,12 +69,14 @@ const signup = () => {
               </label>
               <br />
               <input
+                ref={email}
                 className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded"
                 onChange={handleChange}
                 name="email"
                 id="email"
-                type="text"
+                type="email"
                 placeholder="Enter your email"
+                required="true"
               />
             </div>
             <div className="mt-2">
@@ -76,12 +85,14 @@ const signup = () => {
               </label>
               <br />
               <input
+                ref={username}
                 className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded"
                 onChange={handleChange}
                 name="username"
                 id="name"
                 type="text"
                 placeholder="Enter your user name"
+                required="true"
               />
             </div>
             <div className="mt-2">
@@ -90,12 +101,14 @@ const signup = () => {
               </label>
               <br />
               <input
+                ref={password}
                 className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded"
                 onChange={handleChange}
                 name="password"
                 id="password"
                 type="password"
                 placeholder="Enter your password"
+                required="true"
               />
             </div>
             <div className="mt-2">
@@ -105,10 +118,11 @@ const signup = () => {
               <br />
               <input
                 className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded"
-                ref={ref}
+                ref={confirmPassword}
                 id="confirm"
                 type="password"
                 placeholder="Confirm your password"
+                required="true"
               />
             </div>
             <button className="bg-black text-white py-2 text-xs mt-5 border rounded">

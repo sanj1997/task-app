@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect,useRef,useState } from "react";
 import { AppContext } from "../hoc/AppContext";
 import team from "../utils/images/team.svg"
 import { authenticateUser } from "../utils/requests";
@@ -10,6 +10,8 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 const signin = () => {
   const cookies = parseCookies()
   const [creds, setCreds] = useState({email: "", password: "" });
+  const email=useRef(null)
+  const password=useRef(null)
   const router=useRouter()
   const {handleAuth}=useContext(AppContext)
   const toast=useToast()
@@ -19,6 +21,8 @@ const signin = () => {
   };
   const handleSubmit = async(e) => {
     e.preventDefault();
+    email.current.value=""
+    password.current.value=""
     authenticateUser(creds).then((res)=>{
        toast({
         description:"Logiin Successfull",
@@ -48,11 +52,11 @@ const signin = () => {
         <form onSubmit={handleSubmit} className=" w-full flex flex-col">
           <div className="mt-2">
           <label className="text-xs font-medium" htmlFor="email">Email</label><br />
-          <input name="email" onChange={handleChange} className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded" id="email" type="text" placeholder="Enter your email" />
+          <input ref={email} name="email" onChange={handleChange} className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded" id="email" type="email" required="true" placeholder="Enter your email" />
           </div>
           <div className="mt-2">
           <label className="mt-0.5 text-xs font-medium" htmlFor="password">Password</label><br />
-          <input name="password" onChange={handleChange} className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded" id="password" type="password" placeholder="Enter your password" />
+          <input ref={password} name="password" onChange={handleChange} className="w-full px-3 py-2 mt-0.5 text-xs font-thin border border-black rounded" required="true" id="password" type="password" placeholder="Enter your password" />
           </div>
           <div className="flex mt-3 justify-between">
             <span className="flex w-5/12 gap-1 items-center"><input type="checkbox" /><p className="text-xs">rememeber me</p></span>

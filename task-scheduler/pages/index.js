@@ -27,11 +27,13 @@ export const getServerSideProps=async(ctx)=>{
   await dbConnect()
   let currDate=""+new Date()
   currDate=currDate.split(" ").splice(0,4).join(" ")
+  let tasks
   try{
     const verifyUserToken=jwt.verify(cookies.accessToken,"expertia2023AccessToken")
-    let tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
+    tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
     tasks=JSON.stringify(tasks)
   }catch(e){
+    tasks=[]
     console.log(e)
   }
   return {
