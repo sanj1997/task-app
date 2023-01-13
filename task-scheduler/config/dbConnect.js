@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const dbConnect=()=>{
-    return mongoose.connect("mongodb+srv://s:sanjay1997@cluster0.qnkuqjj.mongodb.net/scheduler")
+    return mongoose.connect(process.env.MONGODB_URL)
 }
 
 module.exports=dbConnect

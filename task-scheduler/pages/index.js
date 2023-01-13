@@ -6,7 +6,8 @@ import axios from 'axios'
 import nookies from 'nookies'
 import dbConnect from "../config/dbConnect"
 import TaskModel from "../models/tasks"
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
+const jwt=require("jsonwebtoken")
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({tasks}) {
@@ -33,7 +34,7 @@ export const getServerSideProps=async(ctx)=>{
     tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
     tasks=JSON.stringify(tasks)
   }catch(e){
-    tasks=[]
+    tasks=JSON.stringify([])
     console.log(e)
   }
   return {
