@@ -9,6 +9,7 @@ import { addUserTask } from '../utils/requests'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 const Dashboard = ({tasks}) => {
   const cookies = parseCookies()
+  const {handleClearLocalStorage}=useContext(AppContext)
   const [token,setToken]=useState(cookies.accessToken)
   const [name,setName]=useState("")
   const [date,setDate]=useState("")
@@ -27,6 +28,7 @@ const Dashboard = ({tasks}) => {
      }
   },[token])
   const handleLogout=()=>{
+    handleClearLocalStorage()
     destroyCookie(null,"accessToken")
     setToken("")
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getLocalStorageItem } from "../utils/localStorage"
+import { clearLocalStorage, getLocalStorageItem, removeLocalStorageItem } from "../utils/localStorage"
 
 export const AppContext=React.createContext()
 export const AppContextProvider=({children})=>{
@@ -15,9 +15,16 @@ export const AppContextProvider=({children})=>{
        localStorage.setItem("id",JSON.stringify(id))
        localStorage.setItem("username",JSON.stringify(username))
     }
+    const handleClearLocalStorage=()=>{
+        removeLocalStorageItem("accessToken")
+        removeLocalStorageItem("refreshToken")
+        removeLocalStorageItem("username")
+        removeLocalStorageItem("id")
+        clearLocalStorage()
+    }
     useEffect(()=>{
         setAccToken(getLocalStorageItem("accessToken"))
         setRefToken(getLocalStorageItem("refreshToken"))
     },[])
-    return <AppContext.Provider value={{accToken,setAccToken,setRefToken,refToken,handleAuth,id}}>{children}</AppContext.Provider>
+    return <AppContext.Provider value={{accToken,setAccToken,setRefToken,refToken,handleAuth,id,handleClearLocalStorage}}>{children}</AppContext.Provider>
 }
