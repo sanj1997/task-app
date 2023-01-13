@@ -12,7 +12,7 @@ const Dashboard = ({tasks}) => {
   const [token,setToken]=useState(cookies.accessToken)
   const [name,setName]=useState("")
   const [date,setDate]=useState("")
-  const [list,setList]=useState(tasks)
+  const [list,setList]=useState(JSON.parse(tasks))
   const [data,setData]=useState({name:"",user:"",date:""})
   const toast=useToast()
   const router=useRouter()

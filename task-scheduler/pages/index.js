@@ -4,7 +4,9 @@ import { Inter } from '@next/font/google'
 import Dashboard from '../components/Dashboard'
 import axios from 'axios'
 import nookies from 'nookies'
-
+import dbConnect from "../config/dbConnect"
+import TaskModel from "../models/tasks"
+import jwt from "jsonwebtoken"
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({tasks}) {
@@ -22,12 +24,12 @@ export default function Home({tasks}) {
 }
 export const getServerSideProps=async(ctx)=>{
   const cookies = nookies.get(ctx)
-  const response=await axios.get("https://task-app-269i-mobi7am1h-sanj1997.vercel.app/api/tasks",{
-    headers:{
-      authorization:cookies.accessToken
-    }
-  })
-  const tasks=response.data.data
+  await dbConnect()
+  const verifyUserToken=jwt.verify(cookies.accessToken,"expertia2023AccessToken")
+  let currDate=""+new Date()
+  currDate=currDate.split(" ").splice(0,4).join(" ")
+  let tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
+  tasks=JSON.stringify(tasks)
   return {
     props:{
       tasks
