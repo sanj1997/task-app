@@ -59,7 +59,7 @@ const Dashboard = ({tasks}) => {
   }
   return (
     <div className='flex flex-col justify-center items-center xs:px-5 xs:py-24 sm:px-5 sm:py-24 md:px-80 md:py-20 lg:px-96 lg:py-36'>
-        <div className='md:full sm:full xs:full lg:w-9/12 m-auto border border-black p-5'>
+        <div className='md:full sm:full xs:full lg:w-9/12 m-auto border border-grey-600 shadow-lg" p-5'>
            <p className='text-xl'>Hello</p>
            <p className='text-2xl font-semibold mt-2'>{name}</p>
            <p className='text-sm mt-4'>Good to see you here!</p>
