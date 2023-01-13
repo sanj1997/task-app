@@ -25,11 +25,15 @@ export default function Home({tasks}) {
 export const getServerSideProps=async(ctx)=>{
   const cookies = nookies.get(ctx)
   await dbConnect()
-  const verifyUserToken=jwt.verify(cookies.accessToken,"expertia2023AccessToken")
   let currDate=""+new Date()
   currDate=currDate.split(" ").splice(0,4).join(" ")
-  let tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
-  tasks=JSON.stringify(tasks)
+  try{
+    const verifyUserToken=jwt.verify(cookies.accessToken,"expertia2023AccessToken")
+    let tasks=await TaskModel.find({date:currDate,user:verifyUserToken.id})
+    tasks=JSON.stringify(tasks)
+  }catch(e){
+    console.log(e)
+  }
   return {
     props:{
       tasks
